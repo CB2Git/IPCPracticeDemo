@@ -1,0 +1,2 @@
+# IPCPracticeDemo
+练习Android IPC的Demo，包含AIDL、Messenger、ContentProvider的练习Demo以及学习笔记等
