@@ -9,10 +9,10 @@
         android:targetSdkVersion="18" />
 
     <permission
-        android:name="com.example.test1.permission.ACCESS_BOOK_SERVICE"
+        android:name="com.remote.service.PRI"
         android:protectionLevel="normal" />
 
-    <uses-permission android:name="com.example.test1.permission.ACCESS_BOOK_SERVICE" />
+    <uses-permission android:name="com.remote.service.PRI" />
 
     <application
         android:allowBackup="true"

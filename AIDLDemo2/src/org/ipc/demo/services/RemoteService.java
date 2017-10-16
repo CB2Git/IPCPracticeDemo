@@ -31,12 +31,11 @@ public class RemoteService extends Service {
      */
     @Override
     public IBinder onBind(Intent arg0) {
-        // 如果声明了org.ipc.demo.remote权限，才允许绑定
-        // TODO 一直无法实现
-        int check = checkCallingOrSelfPermission("com.ryg.chapter_2.permission.ACCESS_BOOK_SERVICE");
+        // 如果声明了com.remote.service.PRI权限，才允许绑定
+        int check = checkCallingOrSelfPermission("com.remote.service.PRI");
         Log.d("IPC", "onbind check=" + check);
         if (check == PackageManager.PERMISSION_DENIED) {
-            // return null;
+            return null;
         }
         return mStud;
     }
@@ -66,6 +65,7 @@ public class RemoteService extends Service {
 
         @Override
         public void testIn(RemoteObject obj) throws RemoteException {
+            Log.i("IPC", "testIn");
             dealLoacl(obj);
         }
 
@@ -117,7 +117,14 @@ public class RemoteService extends Service {
         @Override
         public void register(IClientCallBack callback) throws RemoteException {
             mList.register(callback);
+            callback.asBinder().linkToDeath(new DeathRecipient() {
 
+                @Override
+                public void binderDied() {
+                    // TODO Auto-generated method stub
+
+                }
+            }, 0);
             int i = mList.beginBroadcast();
             Log.i("IPC", "size = " + (i - 1));
             while (i > 0) {

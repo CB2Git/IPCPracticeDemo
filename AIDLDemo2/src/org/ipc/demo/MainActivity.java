@@ -17,6 +17,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.telephony.IccOpenLogicalChannelResponse;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -31,11 +32,20 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_0) {
+            unbindService(conn);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     private ServiceConnection conn = new ServiceConnection() {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             remoteInterface = null;
+            Log.i("IPC", "onServiceDisconnected");
         }
 
         @Override
@@ -81,6 +91,7 @@ public class MainActivity extends Activity {
             return;
         }
         RemoteObject obj = new RemoteObject();
+        obj.name = "123";
         Log.i("IPC", "local obj = " + obj);
         try {
             remoteInterface.testOut(obj);

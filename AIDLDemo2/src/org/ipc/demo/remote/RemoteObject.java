@@ -10,6 +10,8 @@ public class RemoteObject implements Parcelable {
 
     public int id;
 
+    public String name;
+
     public RemoteObject() {
         Random random = new Random(System.currentTimeMillis());
         id = random.nextInt();
@@ -17,7 +19,7 @@ public class RemoteObject implements Parcelable {
 
     @Override
     public String toString() {
-        return "id = " + id;
+        return "id = " + id + ",name = " + name;
     }
 
     @Override
